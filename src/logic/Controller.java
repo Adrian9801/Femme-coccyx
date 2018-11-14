@@ -25,6 +25,7 @@ public class Controller implements IConstants{
 			initialRegion = finaldRegion;
 			finaldRegion+=region;
 		}
+		System.out.println("Prueba");
 	}
 	// Saber bien que guarda los samples del texto
 	private void splitText(String pText, int pRegion) {
