@@ -14,6 +14,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import logic.Tag;
+
 @SuppressWarnings("deprecation")
 public class AnalyzeImage{
 	private HttpPost Request;

@@ -2,5 +2,18 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/adri-/OneDrive/Escritorio/Estructuras/Proyecto git/Femme-coccyx/lib/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adri-/OneDrive/Escritorio/Estructuras/Proyecto git/Femme-coccyx/lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adri-/OneDrive/Escritorio/Estructuras/Proyecto git/Femme-coccyx/lib/fluent-hc-4.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adri-/OneDrive/Escritorio/Estructuras/Proyecto git/Femme-coccyx/lib/httpclient-4.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adri-/OneDrive/Escritorio/Estructuras/Proyecto git/Femme-coccyx/lib/httpclient-cache-4.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adri-/OneDrive/Escritorio/Estructuras/Proyecto git/Femme-coccyx/lib/httpclient-win-4.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adri-/OneDrive/Escritorio/Estructuras/Proyecto git/Femme-coccyx/lib/httpcore-4.4.10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adri-/OneDrive/Escritorio/Estructuras/Proyecto git/Femme-coccyx/lib/httpmime-4.5.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adri-/OneDrive/Escritorio/Estructuras/Proyecto git/Femme-coccyx/lib/java-json.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adri-/OneDrive/Escritorio/Estructuras/Proyecto git/Femme-coccyx/lib/jawin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adri-/OneDrive/Escritorio/Estructuras/Proyecto git/Femme-coccyx/lib/jawin-stubs.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adri-/OneDrive/Escritorio/Estructuras/Proyecto git/Femme-coccyx/lib/jna-4.4.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adri-/OneDrive/Escritorio/Estructuras/Proyecto git/Femme-coccyx/lib/jna-platform-4.4.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

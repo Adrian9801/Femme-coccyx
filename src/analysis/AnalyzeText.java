@@ -20,7 +20,7 @@ private String Text;
 			@SuppressWarnings("resource")
 			BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
 			while ((line = bufferedReader.readLine()) != null) {
-				if(line.length() >2)
+				if(line.length() > 1)
 					Text+=line.toLowerCase();
 			}
 		} catch (FileNotFoundException e) {
