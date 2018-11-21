@@ -4,12 +4,10 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-
 import tda.BAsteriskTree;
 import tda.Hash;
+import tda.Nodo;
 import tda.SimpleList;
-import logic.Tag;
-import logic.WordSample;
 import analysis.AnalyzeText;
 import library.IConstants;
 
@@ -17,10 +15,22 @@ public class Controller implements IConstants{
 	private ArrayList<Tag> ListTags;
 	private Hash<Sample> HashTable;
 	private SimpleList<Sample> ListSamples;
-	
+	private BAsteriskTree<WordSample> WordsTree;
+	private double TotalTags;
 	
 	public Controller() {
 		ListTags = new ArrayList<Tag>();
+		HashTable = new Hash<Sample>();
+		ListSamples = new SimpleList<Sample>();
+		WordsTree = new BAsteriskTree<WordSample>(6);
+		ListTags = new ArrayList<Tag>();
+		TotalTags = 0;
+	}
+	
+	public void recibirNode(Nodo<Sample> pNode) {
+	}
+	
+	public void recibirGrafo(int pPos, int pID,int pDistancia, boolean pisAvl) {
 	}
 	
 	public void analyzeText(String pPath) {
@@ -37,7 +47,6 @@ public class Controller implements IConstants{
 			initialRegion = finaldRegion;
 			finaldRegion+=region;
 		}
-		System.out.println("Prueba");
 	}
 	// Saber bien que guarda los samples del texto
 	private void splitText(String pText, int pRegion) {
@@ -46,8 +55,49 @@ public class Controller implements IConstants{
 		int number = 40;
 		while (stringToken.hasMoreTokens() && numberWords > 0 && number > 0) {
 			WordSample sample = new WordSample(stringToken.nextToken(), pRegion); 
+			WordsTree.add(sample, sample.getWord().substring(0, 1));
 			numberWords--;
 			number--;
+		}
+	}
+	
+	public void assignTags() {
+		ArrayList<Tag> tags = getListTags();
+		double count = 0.0;
+		int index = 0;
+		int control = 1;
+		if(tags.size() >= 2)
+			count = tags.get(0).getConfidence() + tags.get(1).getConfidence();
+		else {
+			count = tags.get(0).getConfidence();
+			control = 0;
+		}
+		count = (count*ListSamples.getLength())/TotalTags;
+		for(int i = 0; i < ListSamples.getLength(); i++) {
+			if(count > 0) {
+				index*=control;
+				ListSamples.getFirst().setTag(tags.get(index));
+				index*=-1;
+				index++;
+				count--;
+			}
+			else {
+				if(tags.size() >= 4) {
+					tags.remove(0);
+					tags.remove(0);
+					count+=tags.get(1).getConfidence();
+				}
+				else if(tags.size() >= 3) {
+					tags.remove(0);
+					tags.remove(0);
+					control=0;
+				}
+				else
+					count+=tags.get(control).getConfidence();
+				count+=tags.get(0).getConfidence();
+				count = (count*ListSamples.getLength())/TotalTags;
+				ListSamples.getFirst().setTag(tags.get(0));
+			}
 		}
 	}
 	
@@ -61,7 +111,7 @@ public class Controller implements IConstants{
 		int finalPosX = buffer.getWidth()/4;
 		int finalPosY = buffer.getHeight()/4;
 		for(int region = 0; region < NUM_REGIONS; region++) {
-			//extractPixeles(buffer, initialPosX, initialPosY, finalPosX, finalPosY, region);
+			extractPixeles(buffer, initialPosX, initialPosY, finalPosX, finalPosY, region);
 			if((region+1)%4 != 0) {
 				initialPosX = finalPosX;
 				finalPosX = finalPosX + buffer.getWidth()/4;
@@ -73,7 +123,7 @@ public class Controller implements IConstants{
 				finalPosY = finalPosY + buffer.getHeight()/4;
 			}
 		}
-		//assignTags();
+		assignTags();
 	}
 	
 	//Si hay que recordar region agregar atributo a los samples
@@ -95,4 +145,14 @@ public class Controller implements IConstants{
 				ListSamples.add((Sample) HashTable.getValue(key));
 		}
 	}
+	
+	private native Nodo<Sample> sendSamples(Nodo<Sample> pNode, Controller controller);
+	 
+    static {
+        System.load("C:\\Users\\adri-\\OneDrive\\Escritorio\\ProyectoImagenes\\src/ConexionC.dll");
+    }
+ 
+    public Nodo<Sample> enviarSamples(Nodo<Sample> pNode, Controller controller) {
+        return sendSamples(pNode, controller);
+    }
 }
