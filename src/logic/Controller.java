@@ -15,6 +15,9 @@ import library.IConstants;
 
 public class Controller implements IConstants{
 	private ArrayList<Tag> ListTags;
+	private Hash<Sample> HashTable;
+	private SimpleList<Sample> ListSamples;
+	
 	
 	public Controller() {
 		ListTags = new ArrayList<Tag>();
@@ -71,5 +74,25 @@ public class Controller implements IConstants{
 			}
 		}
 		//assignTags();
+	}
+	
+	//Si hay que recordar region agregar atributo a los samples
+	private void extractPixeles(BufferedImage buffer, int pInitialPosX, int pInitialPosY, int pFinalPosX, int pFinalPosY, int pRegion) {
+		int regionWidth = buffer.getWidth()/4;
+		int regionHeigth = buffer.getHeight()/4;
+		int numPixeles = (int)(Math.random()*(MAX_PORCENTAJE-MIN_PORCENTAJE))+MIN_PORCENTAJE;
+		numPixeles = (regionWidth*regionHeigth*numPixeles)/100;
+		for(int i = 0; numPixeles > i; i++) {
+			int posX = (int)(Math.random()*(pFinalPosX-pInitialPosX))+pInitialPosX;
+			int posY = (int)(Math.random()*(pFinalPosY-pInitialPosY))+pInitialPosY;
+			Sample sample = new Sample(new Color(buffer.getRGB(posX, posY)));
+			sample.addPixel(posX,posY);
+			int key = sample.getSampleColor().getRGB()*(-1);
+			Sample sampleHash = (Sample) HashTable.functionHush(sample, key);
+			if(sampleHash != null)
+				sampleHash.addPixel(posX,posY);
+			else
+				ListSamples.add((Sample) HashTable.getValue(key));
+		}
 	}
 }
