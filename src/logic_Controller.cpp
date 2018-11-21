@@ -14,14 +14,14 @@ using namespace std;
 
 JNIEXPORT jobject JNICALL Java_logic_Controller_sendSamples
 (JNIEnv *env, jobject obj, jobject pNodo, jobject pController){
-	jclass classNodo = env->FindClass("Logic/Nodo");
-	jclass classController = env->FindClass("Logic/Controller");
+	jclass classNodo = env->FindClass("logic/Nodo");
+	jclass classController = env->FindClass("logic/Controller");
 	jmethodID metodoID;
 	jmethodID metodoNextNode;
 	jmethodID metodogetNode;
 	jmethodID metodogetGrafo;
 	
-	metodogetNode = env->GetMethodID(classController, "recibirNode", "(LLogic/Nodo;)V");
+	metodogetNode = env->GetMethodID(classController, "recibirNode", "(Llogic/Nodo;)V");
 	metodogetGrafo = env->GetMethodID(classController, "recibirGrafo", "(IIIZ)V");
 	Monticulo<jobject> mon = Monticulo<jobject>();
 	ArbolAvl<jobject> Tree = ArbolAvl<jobject>();
@@ -31,7 +31,7 @@ JNIEXPORT jobject JNICALL Java_logic_Controller_sendSamples
 	Tree.insert(pNodo,ID);
 	mon.addElement(pNodo,ID);
 	ID = -1;
-	metodoNextNode = env->GetMethodID(classNodo, "getNext", "()LLogic/Nodo;");
+	metodoNextNode = env->GetMethodID(classNodo, "getNext", "()Llogic/Nodo;");
 	while(ID != 0){
 		pNodo = env->CallObjectMethod(pNodo, metodoNextNode);
 		metodoID = env->GetMethodID(classNodo, "getID", "()I");
