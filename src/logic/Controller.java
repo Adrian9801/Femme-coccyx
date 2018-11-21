@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 import tda.BAsteriskTree;
+import tda.Grafo;
 import tda.Hash;
 import tda.Nodo;
 import tda.SimpleList;
@@ -16,6 +17,7 @@ public class Controller implements IConstants{
 	private Hash<Sample> HashTable;
 	private SimpleList<Sample> ListSamples;
 	private BAsteriskTree<WordSample> WordsTree;
+	private Grafo<Sample> grafoSamples;
 	private double TotalTags;
 	
 	public Controller() {
@@ -24,13 +26,22 @@ public class Controller implements IConstants{
 		ListSamples = new SimpleList<Sample>();
 		WordsTree = new BAsteriskTree<WordSample>(6);
 		ListTags = new ArrayList<Tag>();
+		grafoSamples = new Grafo<Sample>();
 		TotalTags = 0;
 	}
 	
 	public void recibirNode(Nodo<Sample> pNode) {
+		grafoSamples.addVertice(pNode);
 	}
 	
 	public void recibirGrafo(int pPos, int pID,int pDistancia, boolean pisAvl) {
+		grafoSamples.addArco(pPos, pID, pDistancia, pisAvl);
+	}
+	
+	public void getTagsPorcentaje() {
+		for(int i = ListTags.size()-1; ListTags.size() > 10; i--) {
+			ListTags.remove(i);
+		}
 	}
 	
 	public void analyzeText(String pPath) {
@@ -99,6 +110,7 @@ public class Controller implements IConstants{
 				ListSamples.getFirst().setTag(tags.get(0));
 			}
 		}
+		getTagsPorcentaje();
 	}
 	
 	public ArrayList<Tag> getListTags() {
@@ -149,7 +161,7 @@ public class Controller implements IConstants{
 	private native Nodo<Sample> sendSamples(Nodo<Sample> pNode, Controller controller);
 	 
     static {
-        System.load("C:\\Users\\adri-\\OneDrive\\Escritorio\\Estructuras\\Proyecto git\\Femme-coccyx\\src/ConexionC.dll");
+        System.load("C:\\Users\\adri-\\OneDrive\\Escritorio\\Estructuras\\Proyecto git\\Femme-coccyx\\src/ConexionJNI.dll");
     }
  
     public Nodo<Sample> enviarSamples(Nodo<Sample> pNode, Controller controller) {
