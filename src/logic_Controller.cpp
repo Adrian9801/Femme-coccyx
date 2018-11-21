@@ -5,7 +5,7 @@
 #include <windows.h>
 #include <sstream>
 #include <string.h>
-#include "Logic_Nodo.h"
+#include "logic_Controller.h"
 #include "ArbolAvl.cpp"
 #include "Graph.cpp"
 #include "Monticulo.cpp"

@@ -149,7 +149,7 @@ public class Controller implements IConstants{
 	private native Nodo<Sample> sendSamples(Nodo<Sample> pNode, Controller controller);
 	 
     static {
-        System.load("C:\\Users\\adri-\\OneDrive\\Escritorio\\ProyectoImagenes\\src/ConexionC.dll");
+        System.load("C:\\Users\\adri-\\OneDrive\\Escritorio\\Estructuras\\Proyecto git\\Femme-coccyx\\src/ConexionC.dll");
     }
  
     public Nodo<Sample> enviarSamples(Nodo<Sample> pNode, Controller controller) {
