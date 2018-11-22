@@ -36,6 +36,10 @@ public class SimpleList<T> {
 		return Nodo.getValue();
 	}
 	
+	public Nodo<T> getFirstNode() {
+		return First;
+	}
+	
 	public int getLength() {
 		return Length;
 	}

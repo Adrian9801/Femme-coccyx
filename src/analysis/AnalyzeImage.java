@@ -31,7 +31,7 @@ public class AnalyzeImage{
 	        URI uri = builder.build();
 	        Request = new HttpPost(uri);
 	        Request.setHeader("Content-Type", "application/json");
-	        Request.setHeader("Ocp-Apim-Subscription-Key", "ef583b9c1bc74862ae6aa85bd7169ce1");
+	        Request.setHeader("Ocp-Apim-Subscription-Key", "4037137ee03d43a58e406cec92afabf4");
 	    } catch (Exception e) {
 	    	System.out.println(e.getMessage());
 		}  

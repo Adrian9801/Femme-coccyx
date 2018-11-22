@@ -9,6 +9,7 @@ import tda.Grafo;
 import tda.Hash;
 import tda.Nodo;
 import tda.SimpleList;
+import analysis.AnalyzeImage;
 import analysis.AnalyzeText;
 import library.IConstants;
 
@@ -42,6 +43,14 @@ public class Controller implements IConstants{
 		for(int i = ListTags.size()-1; ListTags.size() > 10; i--) {
 			ListTags.remove(i);
 		}
+	}
+	
+	public void analyzeImage(String pUrl) {
+		AnalyzeImage imageAnalysis = new AnalyzeImage();
+		imageAnalysis.analyze(pUrl);
+		imageAnalysis.tags(ListTags);
+		for(Tag tag : ListTags)
+			TotalTags+=tag.getConfidence();
 	}
 	
 	public void analyzeText(String pPath) {
@@ -110,7 +119,10 @@ public class Controller implements IConstants{
 				ListSamples.getFirst().setTag(tags.get(0));
 			}
 		}
+		enviarSamples(ListSamples.getFirstNode(), this);
 		getTagsPorcentaje();
+		grafoSamples.prim();
+		grafoSamples.getManMinNodes();
 	}
 	
 	public ArrayList<Tag> getListTags() {
