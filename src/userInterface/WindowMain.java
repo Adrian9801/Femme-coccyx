@@ -92,7 +92,7 @@ public class WindowMain extends JFrame implements IConstants{
             	addImageAnalyze();
             }
         });
-		btnAddImage.setBounds(10, 140, 120, 35);
+		btnAddImage.setBounds(10, 140, 125, 30);
         this.add(btnAddImage); 
     }
 	
