@@ -22,7 +22,6 @@ import logic.Controller;
 
 @SuppressWarnings("serial")
 public class WindowMain extends JFrame implements IConstants{
-	private Controller controller;
 	private JButton btnLoadText;
 	private JButton btnAnalyze;
 	private BufferedImage buffer;
@@ -44,7 +43,7 @@ public class WindowMain extends JFrame implements IConstants{
 	private void initComponent() {
 		URL url = null;
 		Text = false;
-		controller = new Controller();
+		Controller.getInstance();
 		Info = new JLabel();
 		Image Imagen = null;
 		BufferedImage buffer = null;
@@ -74,7 +73,7 @@ public class WindowMain extends JFrame implements IConstants{
         fileChooser.setFileFilter(filter);
         if (fileChooser.showOpenDialog(fileChooser) == JFileChooser.APPROVE_OPTION) {
         	File file = fileChooser.getSelectedFile();
-        	controller.analyzeText(file.getAbsolutePath());
+        	Controller.getInstance().analyzeText(file.getAbsolutePath());
         	Text = true;
         }
     }
@@ -103,8 +102,8 @@ public class WindowMain extends JFrame implements IConstants{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		controller.analyzeImage(Url);
-		controller.generateRegions(buffer);
+		Controller.getInstance().analyzeImage(Url);
+		Controller.getInstance().generateRegions(buffer);
     }
 	
 	public void addBtnText(){

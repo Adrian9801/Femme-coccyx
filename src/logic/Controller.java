@@ -14,6 +14,7 @@ import analysis.AnalyzeText;
 import library.IConstants;
 
 public class Controller implements IConstants{
+	private static Controller Instance = null;
 	private ArrayList<Tag> ListTags;
 	private Hash<Sample> HashTable;
 	private SimpleList<Sample> ListSamples;
@@ -21,7 +22,13 @@ public class Controller implements IConstants{
 	private Grafo<Sample> grafoSamples;
 	private double TotalTags;
 	
-	public Controller() {
+	public static Controller getInstance() {
+		if(Instance == null)
+			Instance = new Controller();
+		return Instance;
+	}
+	
+	private Controller() {
 		ListTags = new ArrayList<Tag>();
 		HashTable = new Hash<Sample>();
 		ListSamples = new SimpleList<Sample>();
@@ -68,16 +75,19 @@ public class Controller implements IConstants{
 			finaldRegion+=region;
 		}
 	}
-	// Saber bien que guarda los samples del texto
+	
 	private void splitText(String pText, int pRegion) {
 		StringTokenizer stringToken = new StringTokenizer(pText, " ,.:;");
+		ArrayList<String> listWords = new ArrayList<String>();
+		while(stringToken.hasMoreTokens()) {
+			listWords.add(stringToken.nextToken());
+		}
 		int numberWords = (stringToken.countTokens()*30)/100;
-		int number = 40;
-		while (stringToken.hasMoreTokens() && numberWords > 0 && number > 0) {
-			WordSample sample = new WordSample(stringToken.nextToken(), pRegion); 
+		int posWord = (int)(Math.random()*(numberWords-1))+1;
+		for(int i = 0; numberWords > i; i++) {
+			WordSample sample = new WordSample(listWords.get(posWord), pRegion); 
 			WordsTree.add(sample, sample.getWord().substring(0, 1));
-			numberWords--;
-			number--;
+			posWord = (int)(Math.random()*(numberWords-1))+1;
 		}
 	}
 	
@@ -129,7 +139,7 @@ public class Controller implements IConstants{
 	public ArrayList<Tag> getListTags() {
 		return ListTags;
 	}
-	//Si el hash se ocupa mas adelante crear uno para cada region de lo contrario limpiar
+	
 	public void generateRegions(BufferedImage buffer) {
 		int initialPosX = 0;
 		int initialPosY = 0;
@@ -151,7 +161,6 @@ public class Controller implements IConstants{
 		assignTags();
 	}
 	
-	//Si hay que recordar region agregar atributo a los samples
 	private void extractPixeles(BufferedImage buffer, int pInitialPosX, int pInitialPosY, int pFinalPosX, int pFinalPosY, int pRegion) {
 		int regionWidth = buffer.getWidth()/4;
 		int regionHeigth = buffer.getHeight()/4;
