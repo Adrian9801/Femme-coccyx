@@ -1,0 +1,48 @@
+# Project: Proyecto 3
+# Makefile created by Dev-C++ 5.11
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = logic_Controller.o ArbolAVL.o Arco.o Graph.o Monticulo.o NodeGraph.o NodoComparable.o
+LINKOBJ  = logic_Controller.o ArbolAVL.o Arco.o Graph.o Monticulo.o NodeGraph.o NodoComparable.o
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -std=c++11
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Java/jdk1.8.0_161/include" -I"C:/Program Files (x86)/Java/jdk1.8.0_161/include/win32"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++" -I"C:/Program Files (x86)/Java/jdk1.8.0_161/include" -I"C:/Program Files (x86)/Java/jdk1.8.0_161/include/win32"
+BIN      = ConexionJNI.dll
+CXXFLAGS = $(CXXINCS) -DBUILDING_DLL=1
+CFLAGS   = $(INCS) -DBUILDING_DLL=1
+RM       = rm.exe -f
+DEF      = libConexionJNI.def
+STATIC   = libConexionJNI.a
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN) $(DEF) $(STATIC)
+
+$(BIN): $(LINKOBJ)
+	$(CPP) -shared $(LINKOBJ) -o $(BIN) $(LIBS) -Wl,--output-def,$(DEF),--out-implib,$(STATIC),--add-stdcall-alias
+
+logic_Controller.o: logic_Controller.cpp
+	$(CPP) -c logic_Controller.cpp -o logic_Controller.o $(CXXFLAGS)
+
+ArbolAVL.o: ArbolAVL.cpp
+	$(CPP) -c ArbolAVL.cpp -o ArbolAVL.o $(CXXFLAGS)
+
+Arco.o: Arco.cpp
+	$(CPP) -c Arco.cpp -o Arco.o $(CXXFLAGS)
+
+Graph.o: Graph.cpp
+	$(CPP) -c Graph.cpp -o Graph.o $(CXXFLAGS)
+
+Monticulo.o: Monticulo.cpp
+	$(CPP) -c Monticulo.cpp -o Monticulo.o $(CXXFLAGS)
+
+NodeGraph.o: NodeGraph.cpp
+	$(CPP) -c NodeGraph.cpp -o NodeGraph.o $(CXXFLAGS)
+
+NodoComparable.o: NodoComparable.cpp
+	$(CPP) -c NodoComparable.cpp -o NodoComparable.o $(CXXFLAGS)
