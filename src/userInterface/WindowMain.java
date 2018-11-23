@@ -24,10 +24,13 @@ import logic.Controller;
 public class WindowMain extends JFrame implements IConstants{
 	private JButton btnLoadText;
 	private JButton btnAnalyze;
+	private JButton btnAddImage;
 	private BufferedImage buffer;
 	private boolean Text;
+	private boolean Image;
 	private String Url;
 	private JLabel Info;
+	private JLabel LabelImagen;
 	
 	public WindowMain() {
 		this.setTitle(TITLE_WINDOW);
@@ -41,30 +44,18 @@ public class WindowMain extends JFrame implements IConstants{
 	}
 	
 	private void initComponent() {
-		URL url = null;
 		Text = false;
+		Image = false;
+		LabelImagen = new JLabel();
 		Controller.getInstance();
 		Info = new JLabel();
-		Image Imagen = null;
-		BufferedImage buffer = null;
-		try {
-			url = new URL("https://pinguinoenlaroca.com/agencia/wp-content/uploads/2018/04/Playa-del-Carmen-601751-smalltabletRetina-1024x576.jpg");
-			Url = url.toString();
-			buffer = ImageIO.read(url);
-			Imagen = buffer;
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}	
-		JLabel labelImagen = new JLabel(new ImageIcon(Imagen));
-        labelImagen.setBounds(MARGIN_LEFT+130,MARGIN_TOP,buffer.getWidth(),buffer.getHeight());
-        this.add(labelImagen);
-        labelImagen.setVisible(true);
         addBtnText();
         addBtnAnalyze();
+        addImage();
         Info.setBounds(600, 700, 150, 30);
         this.add(Info);
+        this.add(LabelImagen);
+        LabelImagen.setVisible(true);
 	}
 	
 	public void loadText(){
@@ -82,17 +73,49 @@ public class WindowMain extends JFrame implements IConstants{
 		btnAnalyze = new JButton("Analizar imagen");
 		btnAnalyze.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evento){
-            	if(Text) {
+            	if(Text && Image) {
             		analyze();
             		Info.setText("Analisis completado");
             	}
             	else
-            		JOptionPane.showMessageDialog(null, "Agregue un texto antes de comenzar", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            		JOptionPane.showMessageDialog(null, "Agregue un texto e imagen antes de comenzar", "Advertencia", JOptionPane.ERROR_MESSAGE);
             }
         });
 		btnAnalyze.setBounds(430, 700, 150, 30);
         this.add(btnAnalyze); 
     }
+	
+	public void addImage(){
+		btnAddImage = new JButton("Insertar Imagen");
+		btnAddImage.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evento){
+            	addImageAnalyze();
+            }
+        });
+		btnAddImage.setBounds(10, 140, 120, 35);
+        this.add(btnAddImage); 
+    }
+	
+	public void addImageAnalyze() {
+		Url  = JOptionPane.showInputDialog("Escribe el link de la imagen");
+		if(Url != null && Url.length() > 5) {
+			if(Url.contains("https://www.dropbox.com/s"))
+				Url = "https://www.dropbox.com/s/raw"+Url.substring(25, Url.length());
+			BufferedImage buffer = null;
+			Image Imagen = null;
+			try {
+				buffer = ImageIO.read(new URL(Url));
+				Imagen = buffer;
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			LabelImagen.setIcon(new ImageIcon(Imagen));
+	        LabelImagen.setBounds(MARGIN_LEFT+130,MARGIN_TOP,buffer.getWidth(),buffer.getHeight());
+	        Image = true;
+		}
+	}
 	
 	public void analyze(){
 		try {
