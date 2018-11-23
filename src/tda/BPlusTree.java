@@ -91,4 +91,17 @@ public class BPlusTree<T> {
 		pFather.addBranche(newPage, false);
 		return full;
 	}
+	
+	public Block<WordSample> search(String pKey) {
+		BPlusPage<WordSample> search = Root;
+		for(int i = 0; i <= Height; i++) {
+			if(i >= Height){
+				if(search.search(pKey) == null) {
+					return search.getValue(pKey);
+				}
+			}
+			search = search.search(pKey);
+		}
+		return null;
+	}
 }

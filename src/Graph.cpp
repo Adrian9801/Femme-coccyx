@@ -59,10 +59,12 @@ void Graph<T>::agregarArcos(){
 		if(lista[i] != 0 || i == 0){
 			if(listaGraphAvl[lista[i]*2+1] != NULL){
 				listaGraphAvl[lista[i]]->crearArco(listaGraphAvl[lista[i]*2+1], 1);
+				listaGraphAvl[lista[i]*2+1]->crearArco(listaGraphAvl[lista[i]], 1);
 				lista.push_back(lista[i]*2+1);
 			}
 			if(listaGraphAvl[lista[i]*2+2] != NULL){
 				listaGraphAvl[lista[i]]->crearArco(listaGraphAvl[lista[i]*2+2], 1);
+				listaGraphAvl[lista[i]*2+2]->crearArco(listaGraphAvl[lista[i]], 1);
 				lista.push_back(lista[i]*2+2);
 			}
 		}
@@ -109,6 +111,7 @@ void Graph<T>::agregarArcosAVLMON(){
 				lista.push_back(lista[i]*2+1);
 			if(listaGraphAvl[lista[i]*2+2] != NULL)
 				lista.push_back(lista[i]*2+2);
+			listaGraphAvl[lista[i]]->setPos(Vertices.size());
 			Vertices.push_back(listaGraphAvl[lista[i]]);
 		}
 	}
@@ -121,6 +124,7 @@ void Graph<T>::agregarArcosAVLMON(){
 				lista2.push_back(lista2[i]*2+1);
 			if(listaGraphMon[lista2[i]*2+2] != NULL)
 				lista2.push_back(lista2[i]*2+2);
+			listaGraphMon[lista2[i]]->setPos(Vertices.size());
 			Vertices.push_back(listaGraphMon[lista2[i]]);
 		}
 	}

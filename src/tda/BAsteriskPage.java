@@ -78,6 +78,19 @@ public class BAsteriskPage<T> {
 		return null;
 	}
 	
+	public Block<WordSample> getValue(String pWord, String pKey) {
+		int compare = 0;
+		for(int i = 0; i < Nodes.length; i++) {
+			if(NumKeys == i) {
+				return null;
+			}
+			compare = Nodes[i].getKey().compareTo(pKey);
+			if(compare == 0)
+				return Nodes[i].getTree().search(pWord);
+		}
+		return null;
+	}
+	
 	public void reorder(int pPosition, boolean pInitation) {
 		for(int i = pPosition; NumKeys-1 > i; i++)
 			Nodes[i] = Nodes[i+1];

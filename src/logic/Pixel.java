@@ -6,7 +6,7 @@ public class Pixel {
 	
 	public Pixel(int pPosX, int pPosY) {
 		PosX = pPosX;
-		PosY = pPosY;			
+		PosY = pPosY;
 	}
 
 	public int getPosX() {
