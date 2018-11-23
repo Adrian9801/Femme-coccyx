@@ -74,7 +74,7 @@ public class BPlusTree<T> {
 		int median = M/2;
 		boolean full = false;
 		BPlusPage<WordSample> newPage = new BPlusPage<WordSample>(M);
-		full = pFather.addKey(pSearch.getNodes()[median]);// No quiero que le pase hasta la referencia al bloque
+		full = pFather.addKey(pSearch.getNodes()[median]);
 		for(int i = 0; i <= median; i++) {
 			if(M%2 != 0 || i != median) {
 				newPage.addKey(pSearch.getNodes()[median+i]);
