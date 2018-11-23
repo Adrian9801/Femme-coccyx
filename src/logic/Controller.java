@@ -35,8 +35,8 @@ public class Controller implements IConstants{
 		grafoSamples.addVertice(pNode);
 	}
 	
-	public void recibirGrafo(int pPos, int pID,int pDistancia, boolean pisAvl) {
-		grafoSamples.addArco(pPos, pID, pDistancia, pisAvl);
+	public void recibirGrafo(int pPos, int pDestino,int pDistancia) {
+		grafoSamples.addArco(pPos, pDestino, pDistancia);
 	}
 	
 	public void getTagsPorcentaje() {
@@ -123,8 +123,9 @@ public class Controller implements IConstants{
 		getTagsPorcentaje();
 		grafoSamples.prim();
 		grafoSamples.getManMinNodes();
+		grafoSamples.crearHashCaminos();
 	}
-	
+	 
 	public ArrayList<Tag> getListTags() {
 		return ListTags;
 	}
@@ -159,12 +160,12 @@ public class Controller implements IConstants{
 		for(int i = 0; numPixeles > i; i++) {
 			int posX = (int)(Math.random()*(pFinalPosX-pInitialPosX))+pInitialPosX;
 			int posY = (int)(Math.random()*(pFinalPosY-pInitialPosY))+pInitialPosY;
-			Sample sample = new Sample(new Color(buffer.getRGB(posX, posY)));
+			Sample sample = new Sample(new Color(buffer.getRGB(posX, posY)), pRegion);
 			sample.addPixel(posX,posY);
 			int key = sample.getSampleColor().getRGB()*(-1);
 			Sample sampleHash = (Sample) HashTable.functionHush(sample, key);
 			if(sampleHash != null)
-				sampleHash.addPixel(posX,posY);
+				sampleHash.addPixel(posX, posY);
 			else
 				ListSamples.add((Sample) HashTable.getValue(key));
 		}

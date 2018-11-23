@@ -116,6 +116,18 @@ public class BPlusPage<T> {
 		}
 		return null;
 	}
+	
+	public Block<WordSample> getValue(String pKey) {
+		int compare = 0;
+		for(int i = 0; i < Keys.length; i++) {
+			if(NumKeys == i)
+				return null;
+			compare = Keys[i].compareTo(pKey);
+			if(compare == 0)
+				return Blocks[i];
+		}
+		return null;
+	}
 
 	public void addBranche(BPlusPage<WordSample> pPage, boolean menos) {
 		int compare = 0;

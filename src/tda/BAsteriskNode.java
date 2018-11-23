@@ -23,4 +23,12 @@ public class BAsteriskNode<T> {
 	public void setKey(String key) {
 		this.Key = key;
 	}
+
+	public BPlusTree<WordSample> getTree() {
+		return Tree;
+	}
+
+	public void setTree(BPlusTree<WordSample> tree) {
+		Tree = tree;
+	}
 }

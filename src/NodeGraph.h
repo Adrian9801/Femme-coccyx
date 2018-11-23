@@ -13,6 +13,7 @@ template <class T> class NodeGraph{
 		NodoComparable<T> *Value;
 		vector<Arco<T>*> Vertices;
 		bool Avl;
+		int Pos;
 	public:
 		NodeGraph (NodoComparable<T> *&pValue, bool pAvl){
 			Value = pValue;
@@ -21,6 +22,8 @@ template <class T> class NodeGraph{
 		void crearArco(NodeGraph<T> *&pDestino, int pDistancia);
 		NodoComparable<T>* getValue(); 
 		bool isAvl();
+		void setPos(int pPos);
+		int getPos();
 		vector<Arco<T>*> getVertices();
 };
 #endif

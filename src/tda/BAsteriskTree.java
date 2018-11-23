@@ -63,6 +63,17 @@ public class BAsteriskTree<T> {
 			}
 		}
 	}
+	
+	public Block<WordSample> search(String pValue, String pKey) {
+		BAsteriskPage<WordSample> searchPage = Root;
+		for(int i = 0; i <= Height; i++) {
+			if(i < Height && searchPage.search(pKey) == null) {
+				return searchPage.getValue(pValue, pKey);
+			}
+			searchPage = searchPage.search(pKey);
+		}
+		return null;
+	}
 
 	private boolean splitPage(BAsteriskPage<WordSample> pSearch, BAsteriskPage<WordSample> pFather) {
 		int median = M/2;

@@ -22,7 +22,7 @@ JNIEXPORT jobject JNICALL Java_logic_Controller_sendSamples
 	jmethodID metodogetGrafo;
 
 	metodogetNode = env->GetMethodID(classController, "recibirNode", "(Ltda/Nodo;)V");
-	metodogetGrafo = env->GetMethodID(classController, "recibirGrafo", "(IIIZ)V");
+	metodogetGrafo = env->GetMethodID(classController, "recibirGrafo", "(III)V");
 	Monticulo<jobject> mon = Monticulo<jobject>();
 	ArbolAvl<jobject> Tree = ArbolAvl<jobject>();
 	Graph<jobject> grafo = Graph<jobject>();
@@ -51,7 +51,7 @@ JNIEXPORT jobject JNICALL Java_logic_Controller_sendSamples
 	for(int i = 0; i < listVertices.size(); i++){
 		adyacentes = listVertices[i]->getVertices();
 		for(int index = 0; index < listVertices[i]->getVertices().size(); index++){
-			env->CallVoidMethod(pController, metodogetGrafo, i, adyacentes[index]->getDestino()->getValue()->getID(),adyacentes[index]->getDistancia(), adyacentes[index]->getDestino()->isAvl());
+			env->CallVoidMethod(pController, metodogetGrafo, i, adyacentes[index]->getDestino()->getPos(),adyacentes[index]->getDistancia());
 		}
 	}
 	return pNodo;

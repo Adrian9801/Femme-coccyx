@@ -18,3 +18,13 @@ template <class T>
 vector<Arco<T>*> NodeGraph<T>::getVertices(){
 	return Vertices;
 }
+
+template <class T>
+int NodeGraph<T>::getPos(){
+	return Pos;
+}
+
+template <class T>
+void NodeGraph<T>::setPos(int pPos){
+	Pos = pPos;
+}
